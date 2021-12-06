@@ -139,7 +139,7 @@ for i in range(1, 30):
 # Elbow technique
 plt.figure(figsize=(10,8))
 plt.plot(range(1,30), wcss, marker='x', linestyle='--')
-plt.xlabel("Number of Components")
+plt.xlabel("Number of Clusters")
 plt.ylabel("WCSS (Within Cluster Sum of Squares)")
 plt.title("WCSS vs Number of Clusters")
 plt.show()
@@ -152,7 +152,7 @@ print(kmeans_pca.cluster_centers_)
 print("----------------------")
 
 # Create new dataframe with components and clusters added.
-df_p_pca_kmeans = pd.concat([p_df.reset_index(drop=True), pd.DataFrame(scores_pca)], axis=1)
+df_p_pca_kmeans = pd.concat([parent_df.reset_index(drop=True), pd.DataFrame(scores_pca)], axis=1)
 df_p_pca_kmeans.columns.values[-3:] = ['Component 1', 'Component 2', 'Component 3']
 df_p_pca_kmeans['Segment K-Means PCA'] = kmeans_pca.labels_
 df_p_pca_kmeans['Segment'] = df_p_pca_kmeans['Segment K-Means PCA'].map({0: 'first',
@@ -161,15 +161,23 @@ df_p_pca_kmeans['Segment'] = df_p_pca_kmeans['Segment K-Means PCA'].map({0: 'fir
 print("----------------------")
 df_cluster_1 = df_p_pca_kmeans.loc[df_p_pca_kmeans['Segment'] == 'first']
 print(df_cluster_1.describe())
+print("Unique Parents 1")
+print(len(df_cluster_1['primary_act_holder_member_id'].unique()))
 print("----------------------")
 df_cluster_2 = df_p_pca_kmeans.loc[df_p_pca_kmeans['Segment'] == 'second']
 print(df_cluster_2.describe())
+print("Unique Parents 2")
+print(len(df_cluster_2['primary_act_holder_member_id'].unique()))
 print("----------------------")
 df_cluster_3 = df_p_pca_kmeans.loc[df_p_pca_kmeans['Segment'] == 'third']
 print(df_cluster_3.describe())
+print("Unique Parents 3")
+print(len(df_cluster_3['primary_act_holder_member_id'].unique()))
 print("----------------------")
 df_cluster_4 = df_p_pca_kmeans.loc[df_p_pca_kmeans['Segment'] == 'fourth']
 print(df_cluster_4.describe())
+print("Unique Parents 4")
+print(len(df_cluster_4['primary_act_holder_member_id'].unique()))
 print("----------------------")
 
 # Visualize the clusters on the first two components of PCA.
